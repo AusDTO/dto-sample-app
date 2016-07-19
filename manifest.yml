@@ -2,6 +2,8 @@
 applications:
  - name: dto-sample-app
    command: dto-sample-app
+   buildpack: https://github.com/cloudfoundry/go-buildpack.git
+   memory: 64M
    env:
      GOVERSION: go1.6
      GOPACKAGENAME: github.com/AusDTO/dto-sample-app
