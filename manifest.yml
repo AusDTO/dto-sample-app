@@ -1,0 +1,7 @@
+---
+applications:
+ - name: dto-sample-app
+   command: dto-sample-app
+   env:
+     GOVERSION: go1.6
+     GOPACKAGENAME: github.com/AusDTO/dto-sample-app
