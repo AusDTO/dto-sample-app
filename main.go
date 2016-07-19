@@ -20,10 +20,16 @@ func healthcheck() {
 }
 
 func main() {
+
+	http.HandleFunc("/seppuku", func(_ http.ResponseWriter, _ *http.Request) {
+		log.Fatal("disemboweled")
+	})
+
 	go healthcheck()
 
 	for {
-		log.Println("Hello, world!")
+		log.Println("CF_INSTANCE_GUID", os.Getenv("CF_INSTANCE_GUID"),
+			"CF_INSTANCE_IP", os.Getenv("CF_INSTANCE_IP"))
 		time.Sleep(time.Second)
 	}
 }
