@@ -2,11 +2,13 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	_ "net/http/pprof"
 	"os"
-	"time"
+
+	"github.com/cloudfoundry-community/go-cfenv"
 )
 
 // CF doesn't consider the app running until it listens on
@@ -25,11 +27,21 @@ func main() {
 		log.Fatal("disemboweled")
 	})
 
-	go healthcheck()
+	appEnv, _ := cfenv.Current()
 
-	for {
-		log.Println("CF_INSTANCE_GUID", os.Getenv("CF_INSTANCE_GUID"),
-			"CF_INSTANCE_IP", os.Getenv("CF_INSTANCE_IP"))
-		time.Sleep(time.Second)
-	}
+	fmt.Println("ID:", appEnv.ID)
+	fmt.Println("Index:", appEnv.Index)
+	fmt.Println("Name:", appEnv.Name)
+	fmt.Println("Host:", appEnv.Host)
+	fmt.Println("Port:", appEnv.Port)
+	fmt.Println("Version:", appEnv.Version)
+	fmt.Println("Home:", appEnv.Home)
+	fmt.Println("MemoryLimit:", appEnv.MemoryLimit)
+	fmt.Println("WorkingDir:", appEnv.WorkingDir)
+	fmt.Println("TempDir:", appEnv.TempDir)
+	fmt.Println("User:", appEnv.User)
+	fmt.Println("Services:", appEnv.Services)
+
+	healthcheck()
+
 }
